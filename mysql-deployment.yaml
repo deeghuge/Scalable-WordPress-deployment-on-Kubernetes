@@ -25,6 +25,7 @@ spec:
   resources:
     requests:
       storage: 20Gi
+  storageClassName: ibm-spectrum-scale-csi-fileset
 ---
 apiVersion: apps/v1    # for versions before 1.9.0 use apps/v1beta2
 kind: Deployment
@@ -50,10 +51,7 @@ spec:
           name: mysql
           env:
             - name: MYSQL_ROOT_PASSWORD
-              valueFrom:
-                secretKeyRef:
-                  name: mysql-pass
-                  key: password.txt
+              value: wordpress-mysql-password
           ports:
             - containerPort: 3306
               name: mysql

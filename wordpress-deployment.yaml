@@ -25,6 +25,7 @@ spec:
   resources:
     requests:
       storage: 20Gi
+  storageClassName: ibm-spectrum-scale-csi-fileset
 ---
 apiVersion: apps/v1   # versions before 1.9.0 use apps/v1beta2
 kind: Deployment
@@ -52,10 +53,7 @@ spec:
             - name: WORDPRESS_DB_HOST
               value: wordpress-mysql
             - name: WORDPRESS_DB_PASSWORD
-              valueFrom:
-                secretKeyRef:
-                  name: mysql-pass
-                  key: password.txt
+              value: wordpress-mysql-password
           ports:
             - containerPort: 80
               name: wordpress
